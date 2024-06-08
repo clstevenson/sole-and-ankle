@@ -45,10 +45,11 @@ const ShoeCard = ({
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <Price variant={variant}>{formatPrice(price)}</Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize("Color", numOfColors)}</ColorInfo>
+          {salePrice && <SalePrice>{formatPrice(salePrice)}</SalePrice>}
         </Row>
       </Wrapper>
     </Link>
@@ -62,7 +63,7 @@ const Link = styled.a`
 
 const Flag = styled.div`
   font-family: "Raleway", sans-serif;
-  font-size: ${14 / 16}rem};
+  font-size: ${14 / 16}rem;
   font-weight: ${WEIGHTS.bold};
   position: absolute;
   top: 12px;
@@ -84,10 +85,13 @@ const ImageWrapper = styled.div`
 
 const Image = styled.img`
   width: 100%;
+  border-radius: 16px 16px 4px 4px;
 `;
 
 const Row = styled.div`
   font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Name = styled.h3`
@@ -95,7 +99,11 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  text-decoration: ${({ variant }) => variant === "on-sale" && "line-through"};
+  color: ${({ variant }) =>
+    variant === "on-sale" ? COLORS.gray[700] : COLORS.gray[900]};
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
