@@ -36,6 +36,7 @@ const ShoeCard = ({
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
+          {/* show appropriate flag if either on sale or just released */}
           {variant !== "default" && (
             <Flag variant={variant}>
               <p>{variant === "new-release" ? "Just released!" : "Sale"}</p>
@@ -70,10 +71,8 @@ const Flag = styled.div`
   right: -4px;
   padding: 10px;
   color: ${COLORS.white};
-  background-color: ${({ variant }) => {
-    if (variant === "new-release") return COLORS.secondary;
-    return COLORS.primary;
-  }};
+  background-color: ${({ variant }) =>
+    variant === "new-release" ? COLORS.secondary : COLORS.primary};
   border-radius: 2px;
 `;
 
@@ -101,8 +100,7 @@ const Name = styled.h3`
 
 const Price = styled.span`
   text-decoration: ${({ variant }) => variant === "on-sale" && "line-through"};
-  color: ${({ variant }) =>
-    variant === "on-sale" ? COLORS.gray[700] : COLORS.gray[900]};
+  color: ${({ variant }) => variant === "on-sale" && COLORS.gray[700]};
 `;
 
 const ColorInfo = styled.p`
