@@ -36,6 +36,11 @@ const ShoeCard = ({
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
+          {variant !== "default" && (
+            <Flag variant={variant}>
+              <p>{variant === "new-release" ? "Just released!" : "Sale"}</p>
+            </Flag>
+          )}
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
@@ -53,6 +58,22 @@ const ShoeCard = ({
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
+`;
+
+const Flag = styled.div`
+  font-family: "Raleway", sans-serif;
+  font-size: ${14 / 16}rem};
+  font-weight: ${WEIGHTS.bold};
+  position: absolute;
+  top: 12px;
+  right: -4px;
+  padding: 10px;
+  color: ${COLORS.white};
+  background-color: ${({ variant }) => {
+    if (variant === "new-release") return COLORS.secondary;
+    return COLORS.primary;
+  }};
+  border-radius: 2px;
 `;
 
 const Wrapper = styled.article``;
